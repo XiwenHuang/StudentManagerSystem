@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>欢迎登录</title>
+  <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css">
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+</head>
+<body>
+      <div class="container" style="margin-top:180px; ">
+
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">登录学生管理系统</div>
+                <div class="panel-body">
+                   <div class="form-horizontal">
+                        <div class="form-group">
+                            <label for="uname" class="col-sm-2 control-label">用户名</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="username" id="usernameId" placeholder="请输入用户名">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd" class="col-sm-2 control-label">密码</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" name="password" id="passwordId" placeholder="请输入密码">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd" class="col-sm-2 control-label">验证码</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="vcode" id="vcodeId" placeholder="请输入验证码">
+                            </div>
+                            <div class="col-sm-3">
+                                <img id="vcodeimgId" src="/account/vcode">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button onclick="login()"  class="btn btn-default">登录</button>
+                                &nbsp;&nbsp;
+                                <input  onclick="register();" type="button"  value="注册" class="btn btn-danger">
+                            </div>
+                        </div>
+                   </div>
+                </div>
+            </div>
+            </div>
+    </div>
+</body>
+<script type="text/javascript">
+    //注意:
+    // 如果我们发送的是`get`请求，并且两次请求的url是一致
+    // 它不会再去发送请求，直接从浏览器缓存中去取
+    // 解决:在url后面加一个随机(日期转成)
+    $("#vcodeimgId").click(function(){
+         //凡是html元素中的src,href都是异步请求
+         $("#vcodeimgId").attr('src','/account/vcode?vid='+Math.random())
+    })
+
+    function login(){
+        var username = $("#usernameId").val();
+        var password = $("#passwordId").val();
+        var vcode = $("#vcodeId").val();
+        console.log(username)
+        console.log(password)
+        console.log(vcode)
+        $.post({
+            url:'/account/login',
+            data:{
+                username: username,
+                password: password,
+                vcode: vcode
+            },
+            success:function(result){
+                console.log(result)
+                if (result.code == 0 || result.code ==2) {
+                    alert(result.mean)
+                }else if(result.code == 1){
+                    //跳转到学生列表页面
+                    window.location.href='/studentmanager/list'
+                }
+            },
+            error:function(err){
+                console.log(err)
+            }
+        })
+    }
+</script>
+</html>

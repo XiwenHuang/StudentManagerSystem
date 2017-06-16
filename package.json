@@ -1,0 +1,26 @@
+{
+  "name": "StudentManagerSystem",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.oschina.net/wenZZZZZZ/studentmanagersystem.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "captchapng": "0.0.1",
+    "express": "^4.15.3",
+    "express-session": "^1.15.3",
+    "mongodb": "^2.2.28",
+    "xtemplate": "^4.7.2",
+    "xtpl": "^3.3.0"
+  },
+  "devDependencies": {}
+}
